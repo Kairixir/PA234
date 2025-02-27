@@ -1,0 +1,2 @@
+baseURL = 'http://localhost'
+disableKinds = ["home", "page", "taxonomy", "term", "RSS", "sitemap", "404", "robotsTXT"]
