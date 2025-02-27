@@ -8,7 +8,7 @@ COPY ./src /src
 
 RUN /go/bin/hugo --minify --gc --cleanDestinationDir
 
-# Intentionally using bloated image to bluff cause I want to win the competition
+# Intentionally using bloated image to bluff, cause I want to win the competition
 # ¯\_(ツ)_/¯
 FROM nginxinc/nginx-unprivileged:alpine3.21-perl
 
