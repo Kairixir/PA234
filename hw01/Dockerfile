@@ -22,12 +22,16 @@ RUN make oldconfig
 RUN make 
 RUN make install
 
-FROM nginxinc/nginx-unprivileged:1.23.1-alpine-slim
+RUN adduser -D busybox
 
-COPY --from=hugo-builder /src/public /usr/share/nginx/html
-
-COPY --from=busybox-builder /busybox/_install/bin/busybox /usr/local/bin/busybox
+FROM scratch
 
 EXPOSE 8080
 
-CMD 
+COPY --from=busybox-builder /etc/passwd /etc/passwd
+
+COPY --from=busybox-builder /busybox/_install/bin/busybox /
+
+COPY --from=hugo-builder /src/public /
+
+CMD ["/busybox", "httpd", "-f", "-v", "-p", "8080"]
