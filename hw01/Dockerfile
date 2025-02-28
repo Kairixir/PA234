@@ -17,23 +17,16 @@ RUN /go/bin/hugo --minify --gc --cleanDestinationDir
 ########################################
 # Asmttpd webserver custom build stage #
 ########################################
-FROM alpine:3.13.2 AS asmttpd-builder
+FROM ubuntu:18.04 AS asmttpd-builder
 
-RUN apk add --no-cache yasm make git gcompat nasm binutils
+RUN apt update
+RUN apt install -y make yasm as31 nasm binutils 
 
 WORKDIR /asmttpd
 
-# Get source for asmttpd
-# RUN git clone --depth=1 https://github.com/nemasu/asmttpd.git .
-
-COPY ./asmttpd /asmttpd
+COPY ./asmttpd/ .
 
 RUN make release
-
-RUN adduser -D asmttpd
-
-# RUN mkdir /asmttpd/web_root/about && echo "ahoj" >> /asmttpd/web_root/about/index.html
-
 
 ##########################
 # Webserver runner stage #
@@ -42,7 +35,7 @@ FROM scratch
 
 EXPOSE 8080
 
-COPY --from=asmttpd-builder /asmttpd/asmttpd /
+COPY --from=asmttpd-builder ./asmttpd/asmttpd /
 
 COPY --from=hugo-builder /src/public /public
 
