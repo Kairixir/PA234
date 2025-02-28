@@ -18,9 +18,9 @@ RUN git clone --depth=1 --branch 1_35_stable git://busybox.net/busybox.git .
 
 COPY busybox-build.config .config
 
-RUN make oldconfig 
-RUN make 
-RUN make install
+RUN make oldconfig && \
+  make && \
+  make install
 
 RUN adduser -D busybox
 
