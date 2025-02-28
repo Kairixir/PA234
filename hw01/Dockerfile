@@ -19,7 +19,8 @@ RUN /go/bin/hugo --minify --gc --cleanDestinationDir
 ########################################
 FROM alpine:3.13.2 AS busybox-builder
 
-RUN apk add gcc musl-dev make perl git
+RUN apk add --no-cache gcc=10.2.1_pre1-r3 musl-dev=1.2.2-r2 \
+  make=4.3-r0 perl=5.32.0-r0 git=2.30.6-r0
 
 WORKDIR /busybox
 
