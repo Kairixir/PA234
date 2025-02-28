@@ -24,29 +24,26 @@ RUN apk add --no-cache yasm make git gcompat nasm binutils
 WORKDIR /asmttpd
 
 # Get source for asmttpd
-RUN git clone --depth=1 https://github.com/nemasu/asmttpd.git .
+# RUN git clone --depth=1 https://github.com/nemasu/asmttpd.git .
 
-RUN make
+COPY ./asmttpd /asmttpd
+
+RUN make release
 
 RUN adduser -D asmttpd
 
-RUN mkdir /asmttpd/web_root/about && echo "ahoj" >> /asmttpd/web_root/about/index.html
+# RUN mkdir /asmttpd/web_root/about && echo "ahoj" >> /asmttpd/web_root/about/index.html
 
-CMD ["/asmttpd/asmttpd", "/asmttpd/web_root", "8080"]
 
-# 
-# ##########################
-# # Webserver runner stage #
-# ##########################
-# FROM scratch
-# 
-# EXPOSE 8080
-# 
-# # Get user to run non-privileged, site and binary
-# COPY --from=asmttpd-builder /etc/passwd /etc/passwd
-# 
-# COPY --from=asmttpd-builder /asmttpd/asmttpd /
-# 
-# COPY --from=hugo-builder /src/public /public
-# 
-# CMD ["/asmttpd", "/", "8080"]
+##########################
+# Webserver runner stage #
+##########################
+FROM scratch
+
+EXPOSE 8080
+
+COPY --from=asmttpd-builder /asmttpd/asmttpd /
+
+COPY --from=hugo-builder /src/public /public
+
+CMD ["/asmttpd", "/public", "8080"]
