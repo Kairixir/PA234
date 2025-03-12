@@ -1,3 +1,8 @@
+# git repo for dockerfile
+# https://github.com/Kairixir/PA234/tree/main/hw01
+# git repo for webserver
+# https://github.com/Kairixir/asmttpd-slim
+
 #####################
 ## Hugo build stage #
 #####################
