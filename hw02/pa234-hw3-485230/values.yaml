@@ -28,7 +28,7 @@ tenant:
           seccompProfile:
             type: RuntimeDefault
     buckets:
-      - name: "<uco>"
+      - name: "485230"
     users:
       - name: s3-creds
     certificate:
@@ -42,8 +42,8 @@ image: cerit.io/pa234/php:8.2-apache
 
 db:
   instances: 1
-  name: "db-<uco>"
-  owner: "<uco>"
+  name: "db-485230"
+  owner: "485230"
   resources:
     requests:
       cpu: 1
@@ -56,6 +56,5 @@ db:
     storageClass: nfs-csi
   backup:
     enable: true
-    path: "s3://<uco>/"
+    path: "s3://485230/"
     url: "http://minio"
-
