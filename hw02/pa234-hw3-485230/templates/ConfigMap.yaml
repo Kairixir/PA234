@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+data:
+  list-buckets-php: |-
+{{ .Files.Get "php-script/list-buckets.php" | indent 4 }}
