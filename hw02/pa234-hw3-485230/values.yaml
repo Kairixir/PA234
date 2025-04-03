@@ -37,7 +37,7 @@ s3:
   access_key: ""
   secret_key: ""
 
-host: uco-pa234.dyn.cloud.e-infra.cz
+host: 485230-pa234.dyn.cloud.e-infra.cz
 image: cerit.io/pa234/php:8.2-apache
 
 db:
