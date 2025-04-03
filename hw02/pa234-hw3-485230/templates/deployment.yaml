@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apache
+  name: pa234-hw03
 spec:
   selector:
     matchLabels:
@@ -11,26 +11,24 @@ spec:
       securityContext:
         runAsUser: 33
       containers:
-      - name: apache
-        image: {{ .Values.image }}
-        volumeMounts:
-          - name: php-script
-            mountPath: /var/www/html/{{ .Values.tenant.buckets.0.name }}.php
-            subPath: {{ .Values.tenant.buckets.0.name }}.php
-        env:
-          - name: AWS_ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-minio-creds
-                key: accesskey
-          - name: AWS_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-minio-creds
-                key: secretkey
-          - name: AWS_S3_ENDPOINT
-            value: "http://{{ .Values.tenant.tenant.name }}-hl:9000"
-    volumes:
-      - name: php-script
-        configMap:
-          name: {{ .Release.Name }}-php-script
+        - name: apache
+          image: {{ .Values.image }}
+          volumeMounts:
+            - name: php-script
+              mountPath: /var/www/html/485230.php
+              subPath: 485230.php
+          env:
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-s3-creds
+                  key: ACCESS_KEY_ID
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-s3-creds
+                  key: ACCESS_SECRET_KEY
+      volumes:
+        - name: php-script
+          configMap:
+            name: cm-php

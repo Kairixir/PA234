@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}
+  name: cm-php
 data:
-  list-buckets-php: |-
+  485230.php: |-
 {{ .Files.Get "php-script/list-buckets.php" | indent 4 }}
