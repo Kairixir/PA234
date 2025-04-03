@@ -25,11 +25,11 @@ RUN /go/bin/hugo --minify --gc --cleanDestinationDir
 FROM ubuntu:18.04 AS asmttpd-builder
 
 RUN apt update
-RUN apt install -y make yasm as31 nasm binutils 
+RUN apt install -y make yasm as31 nasm binutils git
 
 WORKDIR /asmttpd
 
-COPY ./asmttpd/ .
+RUN git clone https://github.com/Kairixir/asmttpd-slim.git .
 
 RUN make release
 
