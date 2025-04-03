@@ -1,12 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pa234-hw03
+  name: apache
 spec:
   selector:
     matchLabels:
       app: apache
   template:
+    metadata:
+      labels:
+        app: apache
     spec: 
       securityContext:
         runAsUser: 33
@@ -28,6 +31,7 @@ spec:
                 secretKeyRef:
                   name: minio-s3-creds
                   key: ACCESS_SECRET_KEY
+      
       volumes:
         - name: php-script
           configMap:
