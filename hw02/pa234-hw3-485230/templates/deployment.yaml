@@ -30,12 +30,12 @@ spec:
               mountPath: /var/www/html/485230.php
               subPath: 485230.php
           env:
-            - name: MINIO_ACCESS_KEY
+            - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
                   name: minio-s3-creds
                   key: ACCESS_KEY_ID
-            - name: MINIO_SECRET_KEY
+            - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   name: minio-s3-creds
