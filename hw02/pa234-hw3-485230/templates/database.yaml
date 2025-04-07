@@ -2,19 +2,22 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: {{ .Values.db.name }}
-  owner: {{ .Values.db.owner }}
 spec:
   instances: {{ .Values.db.instances }}
-  resources:
-    requests:
-      cpu: {{ .Values.db.resources.requests.cpu }}
-      memory: {{ .Values.db.resources.requests.memory }}
-    limits:
-      cpu: {{ .Values.db.resources.limits.cpu }}
-      memory: {{.Values.db.resources.limits.memory }}
-  storage:
-    size: {{ .Values.db.storage.size }}
-    storageClass: {{ .Values.db.storage.storageClass }}
+ 
+  imageName: 'ghcr.io/cloudnative-pg/postgresql:14.7-3'
+ 
+  primaryUpdateStrategy: unsupervised
+ 
+  bootstrap:
+    initdb:
+      database: {{ .Values.db.name | quote }}
+      owner: {{ .Values.db.owner | toString | quote }}
+ 
+  resources: {{ .Values.db.resources | toYaml | nindent 4 }}
+ 
+  storage: {{ .Values.db.storage | toYaml | nindent 4 }}
+
   backup:
     barmanObjectStore:
       destinationPath: {{ .Values.db.backup.path }}

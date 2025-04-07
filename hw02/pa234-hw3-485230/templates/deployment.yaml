@@ -13,9 +13,18 @@ spec:
     spec: 
       securityContext:
         runAsUser: 33
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: apache
           image: {{ .Values.image }}
+          securityContext:
+            runAsUser: 33
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
           volumeMounts:
             - name: php-script
               mountPath: /var/www/html/485230.php
