@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - "test-hello.dyn.cloud.e-infra.cz"
+        - "test-hellox.dyn.cloud.e-infra.cz"
       secretName: test-hello-dyn-cloud-e-infra-cz-tls
   rules:
-    - host: "test-hello.dyn.cloud.e-infra.cz"
+    - host: "test-hellox.dyn.cloud.e-infra.cz"
       http:
         paths:
           - backend:

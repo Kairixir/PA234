@@ -3,12 +3,11 @@ kind: Ingress
 metadata:
   name: apache
 spec:
-  ingressClassName: apache
   rules:
   - host: {{ .Values.host }}
     http:
       paths:
-      - path: "/"
+      - path: /
         pathType: Prefix
         backend:
           service:
