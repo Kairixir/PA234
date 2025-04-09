@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: apache
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /485230.php
 spec:
   rules:
   - host: {{ .Values.host }}
